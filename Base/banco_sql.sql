@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 8.0.30, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.30, for Linux (x86_64)
 --
 -- Host: localhost    Database: dbcursos
 -- ------------------------------------------------------
--- Server version	8.0.30
+-- Server version	8.0.30-0ubuntu0.20.04.2
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -23,16 +23,15 @@ DROP TABLE IF EXISTS `cursos`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cursos` (
-  `codigo` int NOT NULL,
-  `nome` varchar(40) NOT NULL,
-  `tipo` varchar(20) NOT NULL,
+  `codigo` int NOT NULL AUTO_INCREMENT,
+  `nome` varchar(60) NOT NULL,
+  `tipo` varchar(10) NOT NULL,
   `vagas` int NOT NULL,
-  `duracao` varchar(20) NOT NULL,
-  `supervisor` varchar(30) DEFAULT NULL,
-  `mensalidade` decimal(4,2) DEFAULT NULL,
-  `ensino` varchar(20) DEFAULT NULL,
+  `duracao` int NOT NULL,
+  `supervisor` varchar(40) NOT NULL,
+  `mensalidade` decimal(8,2) NOT NULL,
   PRIMARY KEY (`codigo`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -41,6 +40,7 @@ CREATE TABLE `cursos` (
 
 LOCK TABLES `cursos` WRITE;
 /*!40000 ALTER TABLE `cursos` DISABLE KEYS */;
+INSERT INTO `cursos` VALUES (1,'AAA','EAD',3,3,'EAE',3333.33);
 /*!40000 ALTER TABLE `cursos` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -53,4 +53,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-09-12 19:00:12
+-- Dump completed on 2022-09-12 21:54:04
