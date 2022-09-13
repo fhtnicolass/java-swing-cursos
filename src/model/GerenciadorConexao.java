@@ -7,7 +7,7 @@ public class GerenciadorConexao{
 
     public static Connection pegarConexao() throws ClassNotFoundException, SQLException{
         String url = 
-        "jdbc:mysql://127.0.0.1/dblocadora?characterEncoding=latin1";
+        "jdbc:mysql://127.0.0.1/dbcursos?characterEncoding=latin1";
         String usuario = "root";
         String senha = "bancodedados";
 

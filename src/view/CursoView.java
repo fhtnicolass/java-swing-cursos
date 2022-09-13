@@ -5,26 +5,24 @@
 package view;
 
 import javax.swing.JOptionPane;
-
 import model.Curso;
-//import model.DaoCursos;
-import model.Veiculo;
+import model.DaoCursos;
 
 /**
  *
  * @author humberto
  */
-public class CursosView extends javax.swing.JFrame {
-    Curso curso = new Curso();
-    //DaoCursos daoCursos;
+public class CursoView extends javax.swing.JFrame {
+    Curso curso;
+    DaoCursos daoCursos;
 
     /**
      * Creates new form VeiculoView
      */
-    public CursosView() {
+    public CursoView() {
         initComponents();
-        //daoCursos = new DaoCursos();
-        //jtCursos.setModel(new VeiculoTableModel(daoCursos.buscarTodos()));
+        daoCursos = new DaoCursos();
+        jtCursos.setModel(new CursosTableModel(daoCursos.buscarTodos()));
     }
 
     /**
@@ -41,24 +39,28 @@ public class CursosView extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         tfCodigo = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        tfMarca = new javax.swing.JTextField();
+        tfNome = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        tfModelo = new javax.swing.JTextField();
+        tfTipo = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        tfChassi = new javax.swing.JTextField();
+        tfVagas = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        tfAno = new javax.swing.JTextField();
+        tfSupervisor = new javax.swing.JTextField();
         btSalvar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jtVeiculos = new javax.swing.JTable();
+        jtCursos = new javax.swing.JTable();
         btExcluir = new javax.swing.JButton();
         btNovo = new javax.swing.JButton();
         tfFiltro = new javax.swing.JTextField();
         btFiltrar = new javax.swing.JButton();
         btListar = new javax.swing.JButton();
-        rbMarca = new javax.swing.JRadioButton();
-        rbModelo = new javax.swing.JRadioButton();
+        rbTipo = new javax.swing.JRadioButton();
+        rbNome = new javax.swing.JRadioButton();
         jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        tfDuracao = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
+        tfMensalidade = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -75,17 +77,17 @@ public class CursosView extends javax.swing.JFrame {
             }
         });
 
-        jLabel3.setText("Marca:");
+        jLabel3.setText("Nome:");
 
-        jLabel4.setText("Modelo:");
+        jLabel4.setText("Tipo:");
 
-        jLabel5.setText("Chassi:");
+        jLabel5.setText("Vagas:");
 
-        jLabel6.setText("Ano:");
+        jLabel6.setText("Supervisor:");
 
-        tfAno.addFocusListener(new java.awt.event.FocusAdapter() {
+        tfSupervisor.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
-                tfAnoFocusLost(evt);
+                tfSupervisorFocusLost(evt);
             }
         });
 
@@ -96,7 +98,7 @@ public class CursosView extends javax.swing.JFrame {
             }
         });
 
-        jtVeiculos.setModel(new javax.swing.table.DefaultTableModel(
+        jtCursos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
                 {},
@@ -107,12 +109,12 @@ public class CursosView extends javax.swing.JFrame {
 
             }
         ));
-        jtVeiculos.addMouseListener(new java.awt.event.MouseAdapter() {
+        jtCursos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jtVeiculosMouseClicked(evt);
+                jtCursosMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(jtVeiculos);
+        jScrollPane1.setViewportView(jtCursos);
 
         btExcluir.setText("Excluir");
         btExcluir.setEnabled(false);
@@ -143,23 +145,39 @@ public class CursosView extends javax.swing.JFrame {
             }
         });
 
-        bgFiltro.add(rbMarca);
-        rbMarca.setSelected(true);
-        rbMarca.setText("Marca");
+        bgFiltro.add(rbTipo);
+        rbTipo.setSelected(true);
+        rbTipo.setText("Tipo");
+        rbTipo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbTipoActionPerformed(evt);
+            }
+        });
 
-        bgFiltro.add(rbModelo);
-        rbModelo.setText("Modelo");
+        bgFiltro.add(rbNome);
+        rbNome.setText("Nome");
+        rbNome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbNomeActionPerformed(evt);
+            }
+        });
 
         jLabel7.setText("Filtrar por:");
+
+        jLabel8.setText("Duração:");
+
+        jLabel9.setText("Mensalidade:");
+
+        tfMensalidade.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                tfMensalidadeFocusLost(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(124, 124, 124))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -181,55 +199,73 @@ public class CursosView extends javax.swing.JFrame {
                         .addGap(6, 6, 6)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addGap(0, 96, Short.MAX_VALUE)
                                 .addComponent(jLabel7)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(rbMarca)
+                                .addComponent(rbTipo)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(rbModelo)
+                                .addComponent(rbNome)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(tfFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(tfMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(tfModelo, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(tfChassi, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 75, Short.MAX_VALUE)
-                                .addComponent(jLabel6)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(tfAno, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING))))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel3)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(tfNome, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jLabel4)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(tfTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel5)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(tfVagas, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jLabel8)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(tfDuracao, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jLabel6)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(tfSupervisor, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jLabel9)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(tfMensalidade, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(0, 0, Short.MAX_VALUE)))))
+                .addContainerGap(17, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(156, 156, 156)
+                .addComponent(jLabel1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(12, 12, 12)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(tfCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(tfMarca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4)
-                    .addComponent(tfModelo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tfTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(tfChassi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfVagas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6)
-                    .addComponent(tfAno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tfSupervisor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel8)
+                    .addComponent(tfDuracao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel9)
+                    .addComponent(tfMensalidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btSalvar)
@@ -240,8 +276,8 @@ public class CursosView extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tfFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(rbMarca)
-                    .addComponent(rbModelo)
+                    .addComponent(rbTipo)
+                    .addComponent(rbNome)
                     .addComponent(jLabel7))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -258,71 +294,79 @@ public class CursosView extends javax.swing.JFrame {
     }//GEN-LAST:event_tfCodigoActionPerformed
 
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
-        if(tfMarca.getText().equals("") || tfModelo.getText().equals("")
-                || tfChassi.getText().equals("") || tfAno.getText().equals("")){
+               if(tfNome.getText().equals("") || tfDuracao.getText().equals("") || tfSupervisor.getText().equals("") || tfTipo.getText().equals("") 
+             || tfVagas.getText().equals("") || tfMensalidade.getText().equals("") ){
             
             JOptionPane.showMessageDialog(null, 
                     "Preencha todos os campos", "Aviso", JOptionPane.WARNING_MESSAGE);
         }else{
-            Curso curso = new Curso();
+            curso = new Curso();
             curso.setNome(tfNome.getText());
             curso.setDuracao(Integer.parseInt(tfDuracao.getText()));
-            curso.setEnsino(tfTipo);
             curso.setMensalidade(Double.parseDouble(tfMensalidade.getText()));
-
+            curso.setSupervisor(tfSupervisor.getText());
+            curso.setTipo(tfTipo.getText());
+            curso.setVagas(Integer.parseInt(tfVagas.getText()));
+            
+            
             if(tfCodigo.getText().equals("")){
-                daoCurso.inserir(Curso);
+                daoCursos.inserir(curso);
             }else{
-                Curso.setCodigo(Integer.parseInt(tfCodigo.getText()));
-                daoCurso.alterar(Curso);
+                curso.setCodigo(Integer.parseInt(tfCodigo.getText()));
+                daoCursos.alterar(curso);
             }
             this.limparCampos();
-            jtCursos.setModel(new CursoTableModel(daoCurso.buscarTodos()));
+            jtCursos.setModel(new CursosTableModel(daoCursos.buscarTodos()));
         }
     }//GEN-LAST:event_btSalvarActionPerformed
 
-    private void jtCursosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtVeiculosMouseClicked
+    private void tfSupervisorFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfSupervisorFocusLost
+      
+
+    }//GEN-LAST:event_tfSupervisorFocusLost
+
+    private void jtCursosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtCursosMouseClicked
         tfCodigo.setText(
                 jtCursos.getValueAt(jtCursos.getSelectedRow(), 
                     CursosTableModel.COL_CODIGO).toString()
         );
         tfNome.setText(
                 jtCursos.getValueAt(jtCursos.getSelectedRow(), 
-                    CursosTableModel.COL_MARCA).toString()
+                    CursosTableModel.COL_NOME).toString()
         );
-        tfDuracao.setText(
+        tfTipo.setText(
                 jtCursos.getValueAt(jtCursos.getSelectedRow(), 
-                    CursosTableModel.COL_MODELO).toString()
+                    CursosTableModel.COL_TIPO).toString()
         );
-        tfMensalidade.setText(
-            jtCursos.getValueAt(jtCursos.getSelectedRow(), 
-                    CursosTableModel.COL_CHASSI).toString()
+        tfVagas.setText(
+                jtCursos.getValueAt(jtCursos.getSelectedRow(), 
+                    CursosTableModel.COL_VAGAS).toString()
         );
         tfSupervisor.setText(
                 jtCursos.getValueAt(jtCursos.getSelectedRow(), 
-                    CursosTableModel.COL_ANO).toString()
+                    CursosTableModel.COL_SUPERVISOR).toString()
         );
-        tfVagas.setText(
-            jtCursos.getValueAt(jtCursos.getSelectedRow(), 
-                CursosTableModel.COL_ANO).toString()
-         );
-         tfTipo.setText(
-            jtCursos.getValueAt(jtCursos.getSelectedRow(), 
-                CursosTableModel.COL_ANO).toString()
-        );  
+        tfMensalidade.setText(
+                jtCursos.getValueAt(jtCursos.getSelectedRow(), 
+                    CursosTableModel.COL_MENSALIDADE).toString()
+        );
+        tfDuracao.setText(
+                jtCursos.getValueAt(jtCursos.getSelectedRow(), CursosTableModel.COL_DURACAO).toString()
+        );
+
         btExcluir.setEnabled(true);
-    }//GEN-LAST:event_jtVeiculosMouseClicked
+    }//GEN-LAST:event_jtCursosMouseClicked
 
     private void btExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirActionPerformed
         int confirma = JOptionPane.showConfirmDialog(null, 
                 "Confirma a exclusão?", 
-                "Exclusão de Curso", JOptionPane.YES_NO_OPTION);
+                "Exclusão de Veículo", JOptionPane.YES_NO_OPTION);
         
         System.out.println("confirma = " + confirma);
         if(confirma == 0){
-            daoCurso.excluir(Integer.parseInt(tfCodigo.getText()));
+            daoCursos.excluir(Integer.parseInt(tfCodigo.getText()));
             this.limparCampos();
-            jtCursos.setModel(new CursoTableModel(daoCurso.buscarTodos()));
+            jtCursos.setModel(new CursosTableModel(daoCursos.buscarTodos()));
         }
     }//GEN-LAST:event_btExcluirActionPerformed
 
@@ -332,30 +376,41 @@ public class CursosView extends javax.swing.JFrame {
 
     private void btListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btListarActionPerformed
         this.limparCampos();
-        jtCursos.setModel(new jtCursos.setModel(new CursoTableModel(daoCurso.buscarTodos())));
-      
+        jtCursos.setModel(new CursosTableModel(daoCursos.buscarTodos()));
     }//GEN-LAST:event_btListarActionPerformed
 
     private void btFiltrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btFiltrarActionPerformed
         String campo;
-        if(rbCurso.isSelected()){
-            campo = "nome";
-        }else{
+        if(rbTipo.isSelected()){
             campo = "tipo";
+        }else{
+            campo = "vagas";
         }
         
-        jtCursos.setModel(new CursoTableModel(daoCurso.buscarTodosFiltro(campo, tfFiltro.getText())));
+        jtCursos.setModel(new CursosTableModel(
+                daoCursos.buscarTodosFiltro(campo, tfFiltro.getText())));
         this.limparCampos();
         btExcluir.setEnabled(false);
     }//GEN-LAST:event_btFiltrarActionPerformed
 
+    private void tfMensalidadeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfMensalidadeFocusLost
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfMensalidadeFocusLost
+
+    private void rbTipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbTipoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rbTipoActionPerformed
+
+    private void rbNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbNomeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rbNomeActionPerformed
+
     public void limparCampos(){
+        tfCodigo.setText("");
         tfNome.setText("");
-        tfSupervisor.setText("");
-        tfMensalidade.setText("");
         tfTipo.setText("");
-        tfDuracao.setText("");
         tfVagas.setText("");
+        tfSupervisor.setText("");
         btExcluir.setEnabled(false);
     }
             
@@ -376,20 +431,21 @@ public class CursosView extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CursosView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CursoView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CursosView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CursoView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CursosView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CursoView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CursosView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CursoView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CursosView().setVisible(true);
+                new CursoView().setVisible(true);
             }
         });
     }
@@ -408,18 +464,19 @@ public class CursosView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jtCursos;
     private javax.swing.JRadioButton rbNome;
     private javax.swing.JRadioButton rbTipo;
-    
     private javax.swing.JTextField tfCodigo;
+    private javax.swing.JTextField tfDuracao;
+    private javax.swing.JTextField tfFiltro;
+    private javax.swing.JTextField tfMensalidade;
     private javax.swing.JTextField tfNome;
+    private javax.swing.JTextField tfSupervisor;
     private javax.swing.JTextField tfTipo;
     private javax.swing.JTextField tfVagas;
-    private javax.swing.JTextField tfDuracao;
-    private javax.swing.JTextField tfSupervisor;
-    private javax.swing.JTextField tfMensalidade;
     // End of variables declaration//GEN-END:variables
 }
- 

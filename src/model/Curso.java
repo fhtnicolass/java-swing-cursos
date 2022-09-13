@@ -41,7 +41,7 @@ public class Curso {
         this.vagas = vagas;
     }
 
-    public int getDuracao(int duracao) {
+    public int getDuracao() {
         return duracao;
     }
 
@@ -63,42 +63,6 @@ public class Curso {
 
     public void setMensalidade(Double mensalidade) {
         this.mensalidade = mensalidade;
-    }
-
-    public Modalidade getEnsino() {
-        return ensino;
-    }
-
-    public void setEnsino(Modalidade ensino) {
-        this.ensino = ensino;
-    }
-
-    private Modalidade ensino;
-   
-      
-    public Modalidade getStatus() {
-        return ensino;
-    }
-
-    public void setStatus(Modalidade status) {
-        
-        this.status = status;
-        
-    }
-    
-    public enum Modalidade {
-        EAD("Ensino a Distancia"), PRESENCIAL("Presencial"), HIBRIDO("Hibrido");
-
-        private Modalidade(String label) {
-            this.label = label;
-        }
-
-        public String label;
-
-        @SuppressWarnings("unused")
-        public String getLabel() {
-            return label;
-        }
     }
 
 }

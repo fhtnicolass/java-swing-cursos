@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-public class DaoVeiculo {
+public class DaoCursos {
     private Connection conn;
     private Statement st;
 
@@ -31,15 +31,18 @@ public class DaoVeiculo {
         }        
     }
 
-    public boolean inserir(Veiculo v){
+    public boolean inserir(Curso v){
         boolean resultado = false;
         try {
             this.conectar();
-			String comando = "INSERT INTO tb_veiculos VALUES (NULL, '"
-				+ v.getMarca() + "', '" + v.getModelo() + "', '"
-				+ v.getChassi() + "', " + v.getAno() + ");";
+	    String comando = "INSERT INTO cursos(codigo, nome, supervisor, tipo, vagas, duracao, mensalidade) VALUES (NULL, '" 
+                            + v.getNome() + "', '" + v.getSupervisor()
+                            + "', '" + v.getTipo()+ "', " + v.getVagas()
+                            + ", "+ v.getDuracao() + ", " + v.getMensalidade() + " );";
+                            
             
-            //System.out.println(comando);
+            
+            System.out.println(comando);
             st.executeUpdate(comando);
             resultado = true;
         } catch (SQLException e) {
@@ -51,19 +54,20 @@ public class DaoVeiculo {
         return resultado;
     }
 
-    public ArrayList<Veiculo> buscarTodos(){
-        ArrayList<Veiculo> resultados = new ArrayList<Veiculo>();
+    public ArrayList<Curso> buscarTodos(){
+        ArrayList<Curso> resultados = new ArrayList<Curso>();
         try {
             this.conectar();
-            ResultSet rs = st.executeQuery("select * from tb_veiculos order by modelo;");
+            ResultSet rs = st.executeQuery("select * from cursos order by nome;");
             while(rs.next()){
-                Veiculo v = new Veiculo();
+                Curso v = new Curso();
                 v.setCodigo(rs.getInt("codigo"));
-                v.setMarca(rs.getString("marca"));
-                v.setModelo(rs.getString("modelo"));
-                v.setChassi(rs.getString("chassi"));
-                v.setAno(rs.getInt("ano"));
-                
+                v.setNome(rs.getString("nome"));
+                v.setSupervisor(rs.getString("supervisor"));
+                v.setTipo(rs.getString("tipo"));
+                v.setVagas(rs.getInt("vagas"));
+                v.setMensalidade(rs.getDouble("mensalidade"));
+                v.setDuracao(rs.getInt("duracao"));
                 resultados.add(v);
             }
         } catch (Exception e) {
@@ -74,27 +78,28 @@ public class DaoVeiculo {
         return resultados;
     }
 
-    public ArrayList<Veiculo> buscarTodosFiltro(String campo, String filtro){
-        ArrayList<Veiculo> resultados = new ArrayList<Veiculo>();
+    public ArrayList<Curso> buscarTodosFiltro(String campo, String filtro){
+        ArrayList<Curso> resultados = new ArrayList<Curso>();
         
-        if(!campo.equals("marca") && !campo.equals("modelo")){
+        if(!campo.equals("nome") && !campo.equals("tipo")){
             return resultados;
         }
         
         try {
             this.conectar();
-            ResultSet rs = st.executeQuery("SELECT * from tb_veiculos "
+            ResultSet rs = st.executeQuery("SELECT * from cursos "
                 + " WHERE " + campo + " like '%" + filtro + "%'"
-                + " order by modelo;");
+                + " order by nome;");
                   
             while(rs.next()){
-                Veiculo v = new Veiculo();
+                Curso v = new Curso();
                 v.setCodigo(rs.getInt("codigo"));
-                v.setMarca(rs.getString("marca"));
-                v.setModelo(rs.getString("modelo"));
-                v.setChassi(rs.getString("chassi"));
-                v.setAno(rs.getInt("ano"));
-                
+                v.setNome(rs.getString("nome"));
+                v.setSupervisor(rs.getString("supervisor"));
+                v.setTipo(rs.getString("tipo"));
+                v.setVagas(rs.getInt("vagas"));
+                v.setMensalidade(rs.getDouble("mensalidade"));
+                v.setDuracao(rs.getInt("duracao"));
                 resultados.add(v);
             }
         } catch (Exception e) {
@@ -109,7 +114,7 @@ public class DaoVeiculo {
         int qtde = 0;
         try {
             this.conectar();
-            String comando = "delete from tb_veiculos where codigo = "
+            String comando = "delete from cursos where codigo = "
                 + cod + ";";
             st.executeUpdate(comando);
             qtde = st.getUpdateCount();
@@ -121,19 +126,21 @@ public class DaoVeiculo {
         return qtde;
     } 
 
-    public Veiculo consultar(int cod){
-        Veiculo v = null;
+    public Curso consultar(int cod){
+        Curso v = null;
         try {
             this.conectar();
-            ResultSet rs = st.executeQuery("select * from tb_veiculos "
+            ResultSet rs = st.executeQuery("select * from cursos "
                 + " where codigo = " + cod + ";");
             if(rs.next()){
-                v = new Veiculo();
+                v = new Curso();
                 v.setCodigo(rs.getInt("codigo"));
-                v.setMarca(rs.getString("marca"));
-                v.setModelo(rs.getString("modelo"));
-                v.setChassi(rs.getString("chassi"));
-                v.setAno(rs.getInt("ano"));
+                v.setNome(rs.getString("nome"));
+                v.setSupervisor(rs.getString("supervisor"));
+                v.setTipo(rs.getString("tipo"));
+                v.setVagas(rs.getInt("vagas"));
+                v.setMensalidade(rs.getDouble("mensalidade"));
+                v.setDuracao(rs.getInt("duracao"));
             }
         } catch (Exception e) {
             System.out.println("Erro: " + e.getMessage());
@@ -143,14 +150,16 @@ public class DaoVeiculo {
         return v;
     }  
     
-    public int alterar(Veiculo v){
+    public int alterar(Curso v){
         int qtde = 0;
         try {
             this.conectar();
-            String comando = "update tb_veiculos set marca = '"
-            + v.getMarca() + "', modelo = '" + v.getModelo() 
-            + "', chassi = '" + v.getChassi() + "', ano = "
-            + v.getAno() + " where codigo = " + v.getCodigo() + ";";
+            String comando = "update cursos set nome = '"
+            + v.getNome()+ "', supervisor = '" + v.getSupervisor()
+            + "', tipo = '" + v.getTipo()+ "', vagas = " + v.getVagas()
+            + ", duracao = " + v.getDuracao()+ ", mensalidade = " + v.getMensalidade()
+            + " where codigo = " + v.getCodigo() + ";";
+            
             st.executeUpdate(comando);
             qtde = st.getUpdateCount();
         } catch (Exception e) {

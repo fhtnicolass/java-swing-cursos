@@ -5,9 +5,9 @@
 package locadora_swing;
 
 import java.util.ArrayList;
-import model.DaoVeiculo;
-import model.Veiculo;
-import view.VeiculoView;
+import model.DaoCursos;
+import model.Curso;
+import view.CursoView;
 /**
  *
  * @author humberto
@@ -19,13 +19,13 @@ public class Locadora_Swing {
      */
     public static void main(String[] args) {
         System.out.println("OK");
-        DaoVeiculo daoVeiculo = new DaoVeiculo();
-        ArrayList<Veiculo> veiculos = daoVeiculo.buscarTodos();
-        for(Veiculo v : veiculos){
-            System.out.println(v.getMarca() + " | " + v.getModelo());
+        DaoCursos daoVeiculo = new DaoCursos();
+        ArrayList<Curso> cursos = daoVeiculo.buscarTodos();
+        for(Curso v : cursos){
+            System.out.println(v.getNome()+ " | " + v.getTipo());
         }
         
-        new VeiculoView().setVisible(true);
+        new CursoView().setVisible(true);
     }
     
 }
